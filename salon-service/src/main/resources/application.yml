@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: salon-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/salon_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    fetch-registry: true           # FIXED
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/   # FIXED
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
