@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface UserService {
 
-    User createUser(User user);
-    User getUserById(Long Id) throws UserException;
-    List<User> getAllUser();
-    void deleteUser(Long Id) throws UserException;
-    User updateUser(Long Id, User user) throws UserException;
+    User getUserByEmail(String email) throws UserException;
+    User getUserFromJwtToken(String jwt) throws Exception;
+    User getUserById(Long id) throws UserException;
+    List<User> getAllUsers();
+
+
 }

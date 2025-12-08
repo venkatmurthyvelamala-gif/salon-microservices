@@ -5,6 +5,9 @@ import com.service.payload.dto.CategoryDTO;
 import com.service.payload.dto.SalonDTO;
 import com.service.payload.dto.ServiceDTO;
 import com.service.service.ServiceOfferingService;
+import com.service.service.client.CategoryFeignClient;
+import com.service.service.client.SalonFeignClient;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +21,25 @@ public class SalonServiceOfferingController {
     @Autowired
     ServiceOfferingService serviceOfferingService;
 
+    @Autowired
+    SalonFeignClient salonFeignClient;
+
+    @Autowired
+    CategoryFeignClient categoryFeignClient;
+
     @PostMapping("/create")
     public ResponseEntity<ServiceOffering> createService(
-            @RequestBody ServiceDTO serviceDTO) {
+            @RequestBody ServiceDTO serviceDTO,
+            @RequestHeader("Authorization") String jwt) throws Exception {
 
-        SalonDTO salonDTO = new SalonDTO();
-        salonDTO.getId();
+        SalonDTO salonDTO = salonFeignClient.getSalonByOwnerId(jwt).getBody();
 
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setId(Math.toIntExact(serviceDTO.getCategoryId()));
+        if(salonDTO == null){
+            throw new Exception("salon not found");
+        }
+
+        CategoryDTO categoryDTO = categoryFeignClient.getCategoryByIdAndSalonId(serviceDTO.getCategory(), salonDTO.getId()).getBody();
+
 
         ServiceOffering serviceOfferings = serviceOfferingService.createService(salonDTO,serviceDTO,categoryDTO);
         return ResponseEntity.ok(serviceOfferings);

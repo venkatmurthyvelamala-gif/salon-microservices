@@ -9,8 +9,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-service" />
         <module name="gateway-server" />
+        <module name="notification-service" />
       </profile>
-      <profile name="Annotation profile for userservice" enabled="true">
+      <profile name="Annotation profile for payment-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar" />
+        </processorPath>
+        <module name="Service-offering-service" />
+        <module name="salon-service" />
+        <module name="payment-service" />
+      </profile>
+      <profile name="Annotation profile for category-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,9 +31,6 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar" />
         </processorPath>
         <module name="Booking-service" />
-        <module name="salon-service" />
-        <module name="Service-offering-service" />
-        <module name="payment-service" />
         <module name="category-service" />
         <module name="userservice" />
       </profile>
@@ -34,6 +43,7 @@
       <module name="category-service" options="-parameters" />
       <module name="eureka-service" options="-parameters" />
       <module name="gateway-server" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="salon-service" options="-parameters" />
       <module name="userservice" options="-parameters" />

@@ -28,7 +28,7 @@ public class ServiceOfferingServiceImpl implements ServiceOfferingService {
         serviceOffering.setDuration(serviceDTO.getDuration());
         serviceOffering.setDescription(serviceDTO.getDescription());
         serviceOffering.setImages(serviceDTO.getImages());
-        serviceOffering.setCategoryId(serviceDTO.getCategoryId());
+        serviceOffering.setCategoryId(serviceDTO.getCategory());
         serviceOffering.setPrice(serviceDTO.getPrice());
         serviceOffering.setSalonId(serviceDTO.getSalonId());
 

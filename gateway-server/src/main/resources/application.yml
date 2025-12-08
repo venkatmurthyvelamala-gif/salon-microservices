@@ -34,10 +34,20 @@ spring:
           predicates:
             - Path=/api/service-offering/**
 
+        - id: NOTIFICATION-SERVICE
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/api/notifications/**
+
         - id: PAYMENT-SERVICE
           uri: lb://PAYMENT-SERVICE
           predicates:
             - Path=/api/payments/**
+    security:
+      oauth2:
+        resource server:
+          jwt:
+            jwk-set-uri: "http://localhost:8080/realms/master/protocol/openid-connect/certs"
 
 server:
   port: 8090

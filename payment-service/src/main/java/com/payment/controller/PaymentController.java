@@ -6,8 +6,10 @@ import com.payment.payload.dto.BookingDTO;
 import com.payment.payload.dto.UserDTO;
 import com.payment.payload.response.PaymentLinkResponse;
 import com.payment.service.PaymentService;
+import com.payment.service.client.UserFeignClient;
 import com.razorpay.RazorpayException;
 import com.stripe.exception.StripeException;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +21,17 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
+    @Autowired
+    UserFeignClient userFeignClient;
+
     @PostMapping("/create")
     public ResponseEntity<PaymentLinkResponse> createPaymentLink(
             @RequestBody BookingDTO booking,
-            @RequestParam PaymentMethod paymentMethod
-            ) throws StripeException, RazorpayException {
+            @RequestParam PaymentMethod paymentMethod,
+            @RequestHeader("Authorization") String jwt
+            ) throws Exception {
 
-        UserDTO user = new UserDTO();
-        user.setName("Ashok");
-        user.setEmail("ashok.gmail.com");
-        user.setId(1L);
+        UserDTO user = userFeignClient.getUserFromJwtToken(jwt).getBody();
 
         PaymentLinkResponse response = paymentService.createOrder(user,
                                                                   booking,paymentMethod);

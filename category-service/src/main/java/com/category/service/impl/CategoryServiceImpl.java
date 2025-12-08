@@ -51,4 +51,15 @@ public class CategoryServiceImpl implements CategoryService {
         throw  new Exception("you don't have permission to delete this category ");
 
     }
+
+    @Override
+    public Category getCategoryByIdAndSalonId(Long id, Long salonId) throws Exception {
+
+        Category category = categoryRepository.findByIdAndSalonId(id, salonId);
+
+        if(category == null){
+            throw new Exception("Category not found");
+        }
+        return category;
+    }
 }

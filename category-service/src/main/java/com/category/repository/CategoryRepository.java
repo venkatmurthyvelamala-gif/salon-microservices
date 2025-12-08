@@ -11,4 +11,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     Set<Category> findBySalonId(Long salonid);
 
+    Category findByIdAndSalonId(Long id, Long salonId);
+
 }
